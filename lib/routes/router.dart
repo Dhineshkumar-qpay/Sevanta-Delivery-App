@@ -11,10 +11,11 @@ import 'package:sevanta_delivery_partner/views/screens/main_dashboard/earnings/e
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/earnings/earnings_dashboard.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/earnings/payout_status.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/main_dashboard.dart';
+import 'package:sevanta_delivery_partner/views/screens/main_dashboard/notifications/notification_details_screen.dart';
+import 'package:sevanta_delivery_partner/views/screens/main_dashboard/notifications/notifications_screen.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/search_location.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/orders/active_orders_screen.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/orders/my_orders_screen.dart';
-import 'package:sevanta_delivery_partner/views/screens/main_dashboard/orders/order_details_screen.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/pickup/pickup_details_screen.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/pickup/seller_confirmation_screen.dart';
 import 'package:sevanta_delivery_partner/views/screens/main_dashboard/pickup/verify_pickup_screen.dart';
@@ -26,7 +27,7 @@ import 'package:sevanta_delivery_partner/views/screens/personal_information/vehi
 
 class AppRouter {
   static final GoRouter router = GoRouter(
-    initialLocation: '/${AppRoutes.splash}',
+    initialLocation: '/${AppRoutes.mainDashboard}',
     routes: [
       GoRoute(
         path: '/${AppRoutes.splash}',
@@ -152,17 +153,24 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: '/${AppRoutes.orderDetails}',
-        name: AppRoutes.orderDetails,
-        builder: (context, state) {
-          return const OrderDetailsScreen();
-        },
-      ),
-      GoRoute(
         path: '/${AppRoutes.activeOrders}',
         name: AppRoutes.activeOrders,
         builder: (context, state) {
           return const ActiveOrdersScreen();
+        },
+      ),
+      GoRoute(
+        path: '/${AppRoutes.notifications}',
+        name: AppRoutes.notifications,
+        builder: (context, state) {
+          return const NotificationsScreen();
+        },
+      ),
+      GoRoute(
+        path: '/${AppRoutes.notificationDetails}',
+        name: AppRoutes.notificationDetails,
+        builder: (context, state) {
+          return const NotificationDetailsScreen();
         },
       ),
       StatefulShellRoute.indexedStack(

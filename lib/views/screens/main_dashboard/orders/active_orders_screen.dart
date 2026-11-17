@@ -47,17 +47,7 @@ class ActiveOrdersScreen extends StatelessWidget {
                     }
                   },
                   onNotificationTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text('1 Active Delivery in Progress'),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor: AppColors.textColor,
-                        duration: const Duration(milliseconds: 1000),
-                      ),
-                    );
+                    context.pushNamed(AppRoutes.notifications);
                   },
                 ),
 
@@ -85,7 +75,7 @@ class ActiveOrdersScreen extends StatelessWidget {
                         // 5. Action Buttons Grid (2x2)
                         ActionButtonsGrid(
                           onViewDetails: () {
-                            context.pushNamed(AppRoutes.orderDetails);
+                            context.pushNamed(AppRoutes.newDeliveryRequest);
                           },
                           onNavigate: () {
                             context.pushNamed(AppRoutes.deliveryDetails);
@@ -733,7 +723,7 @@ class ActiveOrderLiveMap extends StatelessWidget {
                 width: 50,
                 height: 42,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const Icon(
+                errorBuilder: (_, _, _) => const Icon(
                   Icons.two_wheeler_rounded,
                   color: AppColors.primaryOrange,
                   size: 32,

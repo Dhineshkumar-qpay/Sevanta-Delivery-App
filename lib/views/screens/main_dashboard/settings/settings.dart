@@ -593,7 +593,7 @@ class VehicleInformationCard extends StatelessWidget {
                   child: Image.asset(
                     AppImages.deliveryBikeP,
                     fit: BoxFit.contain,
-                    errorBuilder: (_, __, ___) {
+                    errorBuilder: (_, _, _) {
                       return const Icon(
                         Icons.two_wheeler_rounded,
                         size: 65,
@@ -855,7 +855,7 @@ class ServiceAreaCard extends StatelessWidget {
                           child: Image.asset(
                             AppImages.location,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) {
+                            errorBuilder: (_, _, _) {
                               return Container(
                                 color: AppColors.placeholderGrey,
                                 child: const Icon(

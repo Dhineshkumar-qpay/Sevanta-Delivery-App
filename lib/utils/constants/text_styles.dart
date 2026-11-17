@@ -161,40 +161,6 @@ class BodyTextColors extends StatelessWidget {
     );
   }
 }
-
-class HeaderTextWithReq extends StatelessWidget {
-  const HeaderTextWithReq({super.key, required this.title, this.isReq = true});
-
-  final String title;
-  final bool isReq;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text.rich(
-      textAlign: TextAlign.start,
-      TextSpan(
-        children: [
-          TextSpan(
-            text: title,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: AppColors.textColor,
-            ),
-          ),
-          TextSpan(
-            text: isReq ? ' *' : '',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              color: AppColors.primaryOrange,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class AppTextStyle {
   final double fontSize;
   final FontWeight fontWeight;

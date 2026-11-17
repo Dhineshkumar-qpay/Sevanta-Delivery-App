@@ -309,30 +309,6 @@ class PartnerEarningsBreakdownCard extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildBreakdownRow(String title, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 12.5,
-            fontWeight: FontWeight.w500,
-            color: AppColors.textColor,
-          ),
-        ),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w800,
-            color: AppColors.textColor,
-          ),
-        ),
-      ],
-    );
-  }
 }
 
 class PayoutInformationCard extends StatelessWidget {

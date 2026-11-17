@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:sevanta_delivery_partner/routes/app_routes.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
 import 'package:sevanta_delivery_partner/utils/constants/enums.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_appbar.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_button.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_image.dart';
@@ -376,13 +377,10 @@ class BuildSectionHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textColor,
-          ),
+        HeaderTextBlack(
+          title: title,
+          fontSize: 15,
+          fontWeight: FontWeight.w700,
         ),
       ],
     );
@@ -445,15 +443,12 @@ class _DocumentUploadCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              title,
+                            HeaderTextBlack(
+                              title: title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textColor,
-                              ),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
                             ),
                             const SizedBox(height: 4),
                             Row(
@@ -465,14 +460,12 @@ class _DocumentUploadCard extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 4),
                                 Flexible(
-                                  child: Text(
-                                    'Uploaded',
+                                  child: BodyTextColors(
+                                    title: 'Uploaded',
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.green.shade700,
-                                    ),
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.green.shade700,
                                   ),
                                 ),
                               ],
@@ -480,7 +473,7 @@ class _DocumentUploadCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       InkWell(
                         onTap: onClear,
                         child: const Icon(
@@ -508,25 +501,19 @@ class _DocumentUploadCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        title,
+                      HeaderTextBlack(
+                        title: title,
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textColor,
-                        ),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        'Tap to upload photo',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textGrey,
-                        ),
+                      const BodyTextHint(
+                        title: 'Tap to upload photo',
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   );

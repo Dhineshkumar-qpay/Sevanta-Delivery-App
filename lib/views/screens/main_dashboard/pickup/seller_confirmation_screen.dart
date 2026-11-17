@@ -156,7 +156,7 @@ class ParcelStatusHeaderCard extends StatelessWidget {
                       height: 42,
                       width: 42,
                       fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => const Icon(
+                      errorBuilder: (_, _, _) => const Icon(
                         Icons.inventory_2_rounded,
                         color: AppColors.primaryOrange,
                         size: 34,
@@ -313,7 +313,7 @@ class HandoverHeroIllustration extends StatelessWidget {
                 'https://cdn-icons-png.flaticon.com/128/869/869636.png',
                 height: 80,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const Icon(
+                errorBuilder: (_, _, _) => const Icon(
                   Icons.storefront_rounded,
                   size: 70,
                   color: AppColors.primaryOrange,
@@ -327,7 +327,7 @@ class HandoverHeroIllustration extends StatelessWidget {
                 'https://cdn-icons-png.flaticon.com/128/3063/3063823.png',
                 height: 85,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const Icon(
+                errorBuilder: (_, _, _) => const Icon(
                   Icons.delivery_dining_rounded,
                   size: 70,
                   color: AppColors.acceptGreen,

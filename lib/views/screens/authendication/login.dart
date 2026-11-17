@@ -99,25 +99,10 @@ class _LoginState extends State<Login> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 50),
-                    Container(
-                      padding: const EdgeInsets.all(18),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primaryOrange.withValues(
-                              alpha: 0.22,
-                            ),
-                            blurRadius: 55,
-                            spreadRadius: 15,
-                          ),
-                        ],
-                      ),
-                      child: Image.asset(
-                        AppImages.appLogo,
-                        height: 40,
-                        fit: BoxFit.contain,
-                      ),
+                    Image.asset(
+                      AppImages.appLogo,
+                      height: 35,
+                      fit: BoxFit.contain,
                     ),
                     const SizedBox(height: 20),
                     RichText(
@@ -134,13 +119,12 @@ class _LoginState extends State<Login> {
                         ],
                         style: AppTextStyle(
                           fontSize: 28,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
                           color: AppColors.primaryOrange,
                         ).textStyle,
                       ),
                     ),
                     const SizedBox(height: 14),
-
                     BodyTextHint(title: "Login to continue", fontSize: 14),
                     const SizedBox(height: 45),
                     CustomTextFormField(

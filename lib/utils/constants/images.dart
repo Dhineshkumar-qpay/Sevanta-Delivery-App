@@ -9,6 +9,7 @@ class AppImages {
   static const appLogo = "assets/images/png/app_logo.png";
   static const loginBottom = "assets/images/png/login_bottom.png";
   static const loginTop = "assets/images/png/login_top.png";
+  static const appbarBgP = "assets/images/png/appbar_bg.png";
   static const verify = "assets/images/png/verify.png";
   static const deliveryBikeP = "assets/images/png/delivery_bike.png";
 }

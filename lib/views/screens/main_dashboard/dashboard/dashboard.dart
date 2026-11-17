@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sevanta_delivery_partner/routes/app_routes.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
 import 'package:sevanta_delivery_partner/utils/constants/images.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
+import 'package:sevanta_delivery_partner/views/screens/main_dashboard/orders/my_orders_screen.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_button.dart';
 
 class Dashboard extends StatefulWidget {
@@ -14,6 +16,19 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   bool isOnline = false;
+  final List<OrderItemData> _orders = const [
+    OrderItemData(
+      orderId: 'SVN10245',
+      storeName: 'ABC Store',
+      storeAddress: 'Anna Nagar, Chennai',
+      customerName: 'Priya Sharma',
+      customerAddress: 'MG Road, Chennai',
+      dateTime: '03 Nov 2026 • 10:15 AM',
+      distance: '4.5 km',
+      earnings: '₹85.00',
+      status: OrderStatusType.inProgress,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 190,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.backgroundColor,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: FlexibleSpaceBar(
@@ -81,34 +96,30 @@ class _DashboardState extends State<Dashboard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              'Good Morning!',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.primaryOrange,
-                                letterSpacing: -0.2,
-                              ),
+                            HeaderTextPrimary(
+                              title: 'Good Morning!',
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
                             ),
                             const SizedBox(height: 2),
                             RichText(
                               text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.textColor,
-                                ),
-                                children: const [
+                                children: [
                                   TextSpan(
                                     text: 'Hello, ',
-                                    style: TextStyle(
+                                    style: AppTextStyle(
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w400,
-                                    ),
+                                      color: AppColors.textColor,
+                                    ).textStyle,
                                   ),
                                   TextSpan(
                                     text: 'Rohit Sharma',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w800,
-                                    ),
+                                    style: AppTextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.textColor,
+                                    ).textStyle,
                                   ),
                                 ],
                               ),
@@ -120,7 +131,7 @@ class _DashboardState extends State<Dashboard> {
                       // Notification
                       GestureDetector(
                         onTap: () {
-                          context.pushNamed(AppRoutes.newDeliveryRequest);
+                          context.pushNamed(AppRoutes.notifications);
                         },
                         child: Stack(
                           clipBehavior: Clip.none,
@@ -156,14 +167,11 @@ class _DashboardState extends State<Dashboard> {
                                   shape: BoxShape.circle,
                                 ),
                                 alignment: Alignment.center,
-                                child: const Text(
-                                  '2',
-                                  style: TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w800,
-                                    height: 1,
-                                  ),
+                                child: const BodyTextColors(
+                                  title: '2',
+                                  color: AppColors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w800,
                                 ),
                               ),
                             ),
@@ -243,6 +251,29 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             SliverToBoxAdapter(child: _BuildActiveDeliveryCard()),
+            SliverToBoxAdapter(
+              child: BuildSectionTitle(
+                icon: 'https://cdn-icons-png.flaticon.com/128/1946/1946770.png',
+                title: 'New Orders',
+                actionText: 'View Details >',
+                onActionTap: () {},
+              ),
+            ),
+
+            SliverList.builder(
+              itemCount: _orders.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsetsGeometry.all(15),
+                  child: OrderSummaryCard(
+                    order: _orders[index],
+                    onViewDetailsTap: () {
+                      context.pushNamed(AppRoutes.newDeliveryRequest);
+                    },
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -252,6 +283,7 @@ class _DashboardState extends State<Dashboard> {
 
 class BuildSectionTitle extends StatelessWidget {
   const BuildSectionTitle({
+    super.key,
     required this.icon,
     required this.title,
     required this.actionText,
@@ -266,29 +298,23 @@ class BuildSectionTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsetsGeometry.fromLTRB(15, 10, 15, 0),
       child: Row(
         children: [
           Image.network(icon, height: 24, width: 24),
           SizedBox(width: 10),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textColor,
-            ),
+          HeaderTextBlack(
+            title: title,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
           ),
           const Spacer(),
           GestureDetector(
             onTap: onActionTap,
-            child: Text(
-              actionText,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: AppColors.primaryOrange,
-              ),
+            child: HeaderTextPrimary(
+              title: actionText,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -297,7 +323,7 @@ class BuildSectionTitle extends StatelessWidget {
   }
 }
 
-class _DottedLinePainter extends CustomPainter {
+class DottedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -368,35 +394,33 @@ class _BuildOnlineStatusCard extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    style: TextStyle(
+                    style: AppTextStyle(
                       fontSize: 15,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       color: AppColors.textColor,
-                    ),
+                    ).textStyle,
                     children: [
                       const TextSpan(text: 'You are '),
                       TextSpan(
                         text: isOnline ? 'Online' : 'Offline',
-                        style: TextStyle(
+                        style: AppTextStyle(
                           color: isOnline
                               ? AppColors.successText
                               : AppColors.errorText,
-                          fontWeight: FontWeight.w800,
-                        ),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                        ).textStyle,
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  isOnline
+                BodyTextHint(
+                  title: isOnline
                       ? 'Ready to receive delivery requests'
                       : 'Go online to receive delivery requests',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.textGrey,
-                  ),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),
@@ -474,25 +498,16 @@ class _PerformanceCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 10,
-                    height: 1.2,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textGrey,
-                  ),
+                BodyTextHint(
+                  title: title,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  count,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.textColor,
-                    height: 1,
-                    letterSpacing: 1,
-                  ),
+                HeaderTextBlack(
+                  title: count,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
                 ),
               ],
             ),
@@ -546,26 +561,21 @@ class _TotalEarningsCard extends StatelessWidget {
                       height: 30,
                       color: AppColors.white,
                     ),
-                    Text(
-                      'Total Earnings',
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    BodyTextColors(
+                      title: 'Total Earnings',
+                      color: AppColors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
                     ),
                   ],
                 ),
 
                 const SizedBox(height: 8),
-                Text(
-                  '₹12,450',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: AppColors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    height: 1,
-                  ),
+                BodyTextColors(
+                  title: '₹12,450',
+                  color: AppColors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
                 ),
               ],
             ),
@@ -620,7 +630,7 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFEEF1F6), width: 1.2),
+        border: Border.all(color: AppColors.borderGrey, width: 1.2),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -635,16 +645,16 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RichText(
-                text: const TextSpan(
-                  style: TextStyle(
+                text: TextSpan(
+                  style: AppTextStyle(
                     fontSize: 13,
                     color: AppColors.textGrey,
                     fontWeight: FontWeight.w600,
-                  ),
+                  ).textStyle,
                   children: [
                     TextSpan(text: 'Order ID : '),
                     TextSpan(
-                      text: '#ORD10245',
+                      text: 'ORD10245',
                       style: TextStyle(
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.w800,
@@ -660,7 +670,7 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
                   vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE8F7ED),
+                  color: AppColors.successGreenBg,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -668,17 +678,15 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
                   children: const [
                     Icon(
                       Icons.moped_rounded,
-                      color: Color(0xFF249D4A),
+                      color: AppColors.successGreen,
                       size: 15,
                     ),
                     SizedBox(width: 5),
-                    Text(
-                      'On the Way',
-                      style: TextStyle(
-                        color: Color(0xFF249D4A),
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    BodyTextColors(
+                      title: 'On the Way',
+                      color: AppColors.successGreen,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
                     ),
                   ],
                 ),
@@ -712,22 +720,18 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
-                              Text(
-                                'Pickup:',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF757E95),
-                                ),
+                              BodyTextHint(
+                                title: 'Pickup:',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
                               ),
                               SizedBox(height: 1),
-                              Text(
-                                'Fruit Shop',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.textColor,
-                                ),
+                              HeaderTextBlack(
+                                title: 'Fruit Shop',
+                                fontSize: 13,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w500,
                               ),
                             ],
                           ),
@@ -743,7 +747,7 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
                       ),
                       child: CustomPaint(
                         size: const Size(2, 20),
-                        painter: _DottedLinePainter(),
+                        painter: DottedLinePainter(),
                       ),
                     ),
 
@@ -763,22 +767,18 @@ class _BuildActiveDeliveryCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
-                              Text(
-                                'Drop:',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xFF757E95),
-                                ),
+                              BodyTextHint(
+                                title: 'Drop:',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
                               ),
                               SizedBox(height: 1),
-                              Text(
-                                'MG Road, Chennai',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.textColor,
-                                ),
+                              HeaderTextBlack(
+                                title: 'MG Road, Chennai',
+                                fontSize: 13,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                fontWeight: FontWeight.w500,
                               ),
                             ],
                           ),

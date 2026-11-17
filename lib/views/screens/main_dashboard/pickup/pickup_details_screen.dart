@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sevanta_delivery_partner/routes/app_routes.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_appbar.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_button.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_snackbar.dart';
@@ -74,7 +75,7 @@ class StoreInfoCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.borderGrey, width: 1.2),
       ),
       child: Column(
@@ -83,40 +84,33 @@ class StoreInfoCard extends StatelessWidget {
           Row(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(15),
                 child: Image.network(
                   'https://cdn-icons-png.flaticon.com/128/869/869432.png',
-                  height: 55,
-                  width: 55,
+                  height: 60,
+                  width: 60,
                 ),
               ),
-
               const SizedBox(width: 14),
 
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'ABC Store',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textColor,
-                      ),
+                    HeaderTextBlack(
+                      title: 'ABC Store',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                     const SizedBox(height: 10),
                     const Row(
                       children: [
                         Icon(Icons.phone, size: 13, color: AppColors.textColor),
                         SizedBox(width: 5),
-                        Text(
-                          '+91 98765 43210',
-                          style: TextStyle(
-                            fontSize: 12.5,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textColor,
-                          ),
+                        HeaderTextBlack(
+                          title: '+91 98765 43210',
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
                         ),
                       ],
                     ),
@@ -131,13 +125,10 @@ class StoreInfoCard extends StatelessWidget {
                         ),
                         SizedBox(width: 4),
                         Expanded(
-                          child: Text(
-                            '12, Anna Nagar Main Road, Chennai - 600040',
-                            style: TextStyle(
-                              fontSize: 11.5,
-                              color: AppColors.textGrey,
-                              height: 1.25,
-                            ),
+                          child: BodyTextHint(
+                            title: '12, Anna Nagar Main Road, Chennai - 600040',
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
@@ -154,82 +145,44 @@ class StoreInfoCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
               color: AppColors.surfaceGrey,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(Icons.location_on, size: 14, color: AppColors.textColor),
                 SizedBox(width: 4),
-                Text(
-                  '4.5 km to Pickup Location',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textColor,
-                  ),
+                HeaderTextBlack(
+                  title: '4.5 km to Pickup Location',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
                 ),
               ],
             ),
           ),
 
-          const SizedBox(height: 14),
+          const SizedBox(height: 15),
 
-          Row(
-            children: [
-              Expanded(
-                child: CustomOutlineButton(
-                  onTap: onCallSeller,
+          CustomOutlineButton(
+            onTap: onCallSeller,
+            color: AppColors.acceptGreen,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.phone_outlined,
+                  size: 16,
                   color: AppColors.acceptGreen,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        size: 16,
-                        color: AppColors.acceptGreen,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        'Call Seller',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.acceptGreen,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
-              ),
-
-              const SizedBox(width: 12),
-
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: onNavigate,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.near_me_rounded,
-                        size: 16,
-                        color: AppColors.white,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        'Navigate',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.white,
-                        ),
-                      ),
-                    ],
-                  ),
+                SizedBox(width: 6),
+                BodyTextColors(
+                  title: 'Call Seller',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.acceptGreen,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -247,7 +200,7 @@ class PickupOrderInfoCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.borderGrey, width: 1.2),
         boxShadow: [
           BoxShadow(
@@ -266,7 +219,7 @@ class PickupOrderInfoCard extends StatelessWidget {
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: AppColors.primaryOrange.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(15),
                 ),
                 child: const Icon(
                   Icons.description_rounded,
@@ -275,13 +228,10 @@ class PickupOrderInfoCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              const Text(
-                'Order Information',
-                style: TextStyle(
-                  fontSize: 15.5,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textColor,
-                ),
+              HeaderTextBlack(
+                title: 'Order Information',
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
               ),
             ],
           ),
@@ -329,13 +279,10 @@ class DetailRow extends StatelessWidget {
       children: [
         SizedBox(
           width: 140,
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 12.5,
-              color: AppColors.textGrey,
-              fontWeight: FontWeight.w500,
-            ),
+          child: BodyTextHint(
+            title: label,
+            fontSize: 12.5,
+            fontWeight: FontWeight.w500,
           ),
         ),
         if (isStatus)
@@ -343,25 +290,21 @@ class DetailRow extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
               color: AppColors.successGreenBg,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(15),
             ),
-            child: Text(
-              value,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                color: AppColors.successGreenBadge,
-              ),
+            child: BodyTextColors(
+              title: value,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: AppColors.successGreenBadge,
             ),
           )
         else
-          Text(
-            value,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontSize: 13,
-              fontWeight: isBold ? FontWeight.w800 : FontWeight.w600,
-              color: AppColors.textColor,
-            ),
+          BodyTextColors(
+            title: value,
+            fontSize: 13,
+            fontWeight: isBold ? FontWeight.w800 : FontWeight.w600,
+            color: AppColors.textColor,
           ),
       ],
     );
@@ -379,13 +322,10 @@ class PaymentStatusRow extends StatelessWidget {
       children: [
         const SizedBox(
           width: 140,
-          child: Text(
-            'Payment Status',
-            style: TextStyle(
-              fontSize: 12.5,
-              color: AppColors.textGrey,
-              fontWeight: FontWeight.w500,
-            ),
+          child: BodyTextHint(
+            title: 'Payment Status',
+            fontSize: 12.5,
+            fontWeight: FontWeight.w500,
           ),
         ),
         Spacer(),
@@ -393,15 +333,13 @@ class PaymentStatusRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
             color: AppColors.successGreenBg,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
           ),
-          child: Text(
-            status,
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: AppColors.successGreenBadge,
-            ),
+          child: BodyTextColors(
+            title: status,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            color: AppColors.successGreenBadge,
           ),
         ),
       ],
@@ -419,7 +357,7 @@ class PickupStatusStepperCard extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.borderGrey, width: 1.2),
         boxShadow: [
           BoxShadow(
@@ -432,13 +370,10 @@ class PickupStatusStepperCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Pickup Status',
-            style: TextStyle(
-              fontSize: 15.5,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textColor,
-            ),
+          HeaderTextBlack(
+            title: 'Pickup Status',
+            fontSize: 15.5,
+            fontWeight: FontWeight.w700,
           ),
 
           const SizedBox(height: 16),
@@ -515,7 +450,7 @@ class PickupStatusStepperCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: AppColors.timerGreenBg,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: const Row(
               children: [
@@ -526,14 +461,11 @@ class PickupStatusStepperCard extends StatelessWidget {
                 ),
                 SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    'Please collect the order from the seller and confirm the pickup to continue delivery.',
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      color: AppColors.textColor,
-                      height: 1.25,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  child: HeaderTextBlack(
+                    title:
+                        'Please collect the order from the seller and confirm the pickup to continue delivery.',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -554,15 +486,12 @@ class PickupStatusStepperCard extends StatelessWidget {
       children: [
         iconWidget,
         const SizedBox(height: 6),
-        Text(
-          label,
+        BodyTextColors(
+          title: label,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
-            color: textColor,
-            height: 1.15,
-          ),
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+          color: textColor,
         ),
       ],
     );

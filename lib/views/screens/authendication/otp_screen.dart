@@ -67,7 +67,7 @@ class _OtpScreenState extends State<OtpScreen> {
       height: size + 8,
       textStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
         fontSize: 22,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w600,
         color: AppColors.textColor,
       ),
       decoration: BoxDecoration(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sevanta_delivery_partner/routes/app_routes.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
-import 'package:sevanta_delivery_partner/utils/constants/images.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_appbar.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_button.dart';
 
@@ -87,16 +87,13 @@ class _NewDeliveryScreenState extends State<NewDeliveryScreen> {
                                 color: AppColors.textColor,
                               ),
                               const SizedBox(width: 10),
-                              const Expanded(
-                                child: Text(
-                                  'Expected Earnings',
+                              Expanded(
+                                child: HeaderTextBlack(
+                                  title: 'Expected Earnings',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.textColor,
-                                  ),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
@@ -104,15 +101,10 @@ class _NewDeliveryScreenState extends State<NewDeliveryScreen> {
 
                           const SizedBox(height: 10),
 
-                          Text(
-                            '₹85.00',
-                            style: Theme.of(context).textTheme.titleLarge
-                                ?.copyWith(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w900,
-                                  color: AppColors.primaryOrange,
-                                  height: 1.05,
-                                ),
+                          HeaderTextPrimary(
+                            title: '₹85.00',
+                            fontSize: 30,
+                            fontWeight: FontWeight.w700,
                           ),
 
                           const SizedBox(height: 10),
@@ -194,13 +186,11 @@ class _NewDeliveryScreenState extends State<NewDeliveryScreen> {
                         size: 18,
                       ),
                       SizedBox(width: 6),
-                      Text(
-                        'Reject',
-                        style: TextStyle(
-                          fontSize: 13.5,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.rejectRed,
-                        ),
+                      BodyTextColors(
+                        title: 'Reject',
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.rejectRed,
                       ),
                     ],
                   ),
@@ -246,13 +236,10 @@ class _EarningInfoChip extends StatelessWidget {
         children: [
           Icon(icon, size: 13, color: AppColors.textColor),
           const SizedBox(width: 4),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textColor,
-            ),
+          HeaderTextBlack(
+            title: text,
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
           ),
         ],
       ),
@@ -294,13 +281,10 @@ class PickupLocationCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    'Pickup Location',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 15.5,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textColor,
-                    ),
+                  HeaderTextBlack(
+                    title: 'Pickup Location',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
                   ),
                 ],
               ),
@@ -326,13 +310,10 @@ class PickupLocationCard extends StatelessWidget {
           const SizedBox(height: 10),
 
           // Store Name & Address
-          Text(
-            'ABC Store',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textColor,
-            ),
+          HeaderTextBlack(
+            title: 'ABC Store',
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
           ),
           const SizedBox(height: 10),
           const Row(
@@ -341,13 +322,9 @@ class PickupLocationCard extends StatelessWidget {
               Icon(Icons.location_on, size: 14, color: AppColors.primaryOrange),
               SizedBox(width: 4),
               Expanded(
-                child: Text(
-                  '12, Anna Nagar Main Road, Chennai - 600040',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.textGrey,
-                    height: 1.3,
-                  ),
+                child: BodyTextHint(
+                  title: '12, Anna Nagar Main Road, Chennai - 600040',
+                  fontSize: 12,
                 ),
               ),
             ],
@@ -392,13 +369,10 @@ class DeliveryLocationCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Text(
-                    'Delivery Location',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 15.5,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.textColor,
-                    ),
+                  HeaderTextBlack(
+                    title: 'Delivery Location',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
                   ),
                 ],
               ),
@@ -426,19 +400,13 @@ class DeliveryLocationCard extends StatelessWidget {
           const SizedBox(height: 10),
 
           // Customer Name & Address
-          Text(
-            'Arjun Kumar',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textColor,
-            ),
+          HeaderTextBlack(
+            title: 'Arjun Kumar',
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
           ),
           const SizedBox(height: 10),
-          const Text(
-            '45, MG Road, Chennai - 600001',
-            style: TextStyle(fontSize: 12, color: AppColors.textGrey),
-          ),
+          BodyTextHint(title: '45, MG Road, Chennai - 600001', fontSize: 12),
         ],
       ),
     );
@@ -482,22 +450,16 @@ class DeliveryInformationCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Delivery Breakdown',
-                      style: TextStyle(
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.textColor,
-                      ),
+                    HeaderTextBlack(
+                      title: 'Delivery Breakdown',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
                     ),
                     SizedBox(height: 3),
-                    Text(
-                      'Distance, charges & earnings summary',
-                      style: TextStyle(
-                        fontSize: 10.5,
-                        color: AppColors.textGrey,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    BodyTextHint(
+                      title: 'Distance, charges & earnings summary',
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w500,
                     ),
                   ],
                 ),
@@ -535,22 +497,16 @@ class DeliveryInformationCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Total Delivery Distance',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: AppColors.textGrey,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      BodyTextHint(
+                        title: 'Total Delivery Distance',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
                       ),
                       SizedBox(height: 3),
-                      Text(
-                        '4.5 km',
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w900,
-                          color: AppColors.textColor,
-                        ),
+                      HeaderTextBlack(
+                        title: '4.5 km',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
                       ),
                     ],
                   ),
@@ -564,13 +520,10 @@ class DeliveryInformationCard extends StatelessWidget {
           // Breakdown heading
           Row(
             children: [
-              Text(
-                'Earnings Details',
-                style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textColor,
-                ),
+              HeaderTextBlack(
+                title: 'Earnings Details',
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
               SizedBox(width: 7),
               Expanded(
@@ -631,29 +584,26 @@ class DeliveryInformationCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Expected Partner Earnings',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.white,
-                        ),
+                      BodyTextColors(
+                        title: 'Expected Partner Earnings',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.white,
                       ),
                       SizedBox(height: 3),
-                      Text(
-                        'Your estimated payout',
-                        style: TextStyle(fontSize: 9.5, color: AppColors.white),
+                      BodyTextColors(
+                        title: 'Your estimated payout',
+                        fontSize: 9.5,
+                        color: AppColors.white,
                       ),
                     ],
                   ),
                 ),
-                Text(
-                  '₹85.00',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.white,
-                  ),
+                BodyTextColors(
+                  title: '₹85.00',
+                  fontSize: 23,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.white,
                 ),
               ],
             ),
@@ -690,22 +640,17 @@ class BuildPremiumBreakDownRow extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Expanded(
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textGrey,
-            ),
+          child: BodyTextHint(
+            title: title,
+
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w800,
-            color: AppColors.textColor,
-          ),
+        HeaderTextBlack(
+          title: value,
+          fontSize: 13,
+          fontWeight: FontWeight.w800,
         ),
       ],
     );

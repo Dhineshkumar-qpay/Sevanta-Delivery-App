@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sevanta_delivery_partner/routes/app_routes.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
+import 'package:sevanta_delivery_partner/views/screens/main_dashboard/dashboard/dashboard.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_appbar.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_button.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_text_field.dart';
@@ -97,7 +99,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                       child: OrderSummaryCard(
                         order: _orders[index],
                         onViewDetailsTap: () {
-                          context.pushNamed(AppRoutes.orderDetails);
+                          context.pushNamed(AppRoutes.newDeliveryRequest);
                         },
                       ),
                     ),
@@ -179,13 +181,11 @@ class OrderFilterChipsRow extends StatelessWidget {
                     width: 1.2,
                   ),
                 ),
-                child: Text(
-                  filters[index],
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
-                    color: isSelected ? AppColors.white : AppColors.textColor,
-                  ),
+                child: BodyTextColors(
+                  title: filters[index],
+                  fontSize: 12,
+                  fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+                  color: isSelected ? AppColors.white : AppColors.textColor,
                 ),
               ),
             ),
@@ -209,33 +209,40 @@ class OrderSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(13),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.borderGrey.withValues(alpha: 0.6)),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.borderGrey, width: 1.2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 18,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         children: [
           Row(
             children: [
-              const Text(
-                'ORDER ID : ',
-                style: TextStyle(
-                  fontSize: 9,
-                  color: AppColors.textGrey,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.6,
-                ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                order.orderId,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textColor,
-                  letterSpacing: 1,
+              RichText(
+                text: TextSpan(
+                  style: AppTextStyle(
+                    fontSize: 13,
+                    color: AppColors.textGrey,
+                    fontWeight: FontWeight.w600,
+                  ).textStyle,
+                  children: [
+                    TextSpan(text: 'Order ID : '),
+                    TextSpan(
+                      text: 'ORD10245',
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Spacer(),
@@ -247,14 +254,13 @@ class OrderSummaryCard extends StatelessWidget {
 
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              order.dateTime,
-              style: const TextStyle(fontSize: 10, color: AppColors.textGrey),
+            child: BodyTextHint(
+              title: order.dateTime,
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
             ),
           ),
-
           const SizedBox(height: 13),
-
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -265,25 +271,23 @@ class OrderSummaryCard extends StatelessWidget {
               SizedBox(width: 20),
               Column(
                 children: [
-                  const Icon(
-                    Icons.circle,
-                    size: 10,
+                  Icon(
+                    Icons.radio_button_checked,
                     color: AppColors.primaryOrange,
-                  ),
-                  Container(
-                    width: 1.2,
-                    height: 37,
-                    color: AppColors.borderGrey,
-                  ),
-                  const Icon(
-                    Icons.location_on_rounded,
                     size: 15,
-                    color: AppColors.acceptGreen,
+                  ),
+                  CustomPaint(
+                    size: const Size(2, 45),
+                    painter: DottedLinePainter(),
+                  ),
+                  Icon(
+                    Icons.radio_button_checked,
+                    color: AppColors.successText,
+                    size: 15,
                   ),
                 ],
               ),
               const SizedBox(width: 10),
-
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,13 +354,10 @@ class OrderSummaryCard extends StatelessWidget {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'ViewDetails',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.primaryOrange,
-                        ),
+                      HeaderTextPrimary(
+                        title: 'ViewDetails',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
                       ),
                       SizedBox(width: 6),
                       Icon(
@@ -392,30 +393,17 @@ class _LocationItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-            fontSize: 9,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textGrey,
-            letterSpacing: 0.5,
-          ),
-        ),
+        BodyTextHint(title: title, fontSize: 9, fontWeight: FontWeight.w500),
         const SizedBox(height: 3),
-        Text(
-          name,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontSize: 11.5,
-            fontWeight: FontWeight.w700,
-            color: AppColors.textColor,
-          ),
-        ),
+        HeaderTextBlack(title: name, fontSize: 11, fontWeight: FontWeight.w600),
         const SizedBox(height: 2),
-        Text(
-          address,
+        BodyTextColors(
+          title: address,
+          fontSize: 10,
+          fontWeight: FontWeight.w600,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 10, color: AppColors.textGrey),
+          color: AppColors.primaryOrange,
         ),
       ],
     );
@@ -443,18 +431,16 @@ class _InfoItem extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(fontSize: 9, color: AppColors.textGrey),
+            BodyTextHint(
+              title: title,
+              fontSize: 9,
+              fontWeight: FontWeight.w500,
             ),
             const SizedBox(height: 5),
-            Text(
-              value,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontSize: 11,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1,
-              ),
+            HeaderTextBlack(
+              title: value,
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
             ),
           ],
         ),
@@ -532,13 +518,11 @@ class OrderLoadingFooter extends StatelessWidget {
         children: const [
           Icon(Icons.sync_rounded, size: 16, color: AppColors.acceptGreen),
           SizedBox(width: 6),
-          Text(
-            'Loading more orders...',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: AppColors.acceptGreen,
-            ),
+          BodyTextColors(
+            title: 'Loading more orders...',
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: AppColors.acceptGreen,
           ),
         ],
       ),

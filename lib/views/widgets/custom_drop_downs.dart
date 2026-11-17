@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
 import 'package:sevanta_delivery_partner/utils/extensions/string_extensions.dart';
 
 class CustomDropDownField extends StatelessWidget {
@@ -85,11 +86,11 @@ class CustomDropDownField extends StatelessWidget {
         hint: Text(
           hintText,
           overflow: TextOverflow.ellipsis,
-          style: TextStyle(
+          style: AppTextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w400,
             color: AppColors.textGrey,
-          ),
+          ).textStyle,
         ),
 
         onChanged: onChanged,
@@ -98,11 +99,11 @@ class CustomDropDownField extends StatelessWidget {
             value: item,
             child: Text(
               item.capitalize(),
-              style: const TextStyle(
+              style: AppTextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 color: AppColors.textColor,
-              ),
+              ).textStyle,
             ),
           );
         }).toList(),
@@ -114,11 +115,11 @@ class CustomDropDownField extends StatelessWidget {
                 value.capitalize(),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: const TextStyle(
+                style: AppTextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textColor,
-                ),
+                ).textStyle,
               ),
             );
           }).toList();

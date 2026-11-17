@@ -65,31 +65,31 @@ class _MainDashboardState extends State<MainDashboard> {
             }),
             destinations: [
               NavigationDestination(
-                icon: Icon(Icons.dashboard_outlined, color: AppColors.textGrey),
+                icon: Icon(Icons.home_outlined, color: AppColors.textGrey),
                 selectedIcon: Icon(
-                  Icons.dashboard_rounded,
+                  Icons.home_rounded,
                   color: AppColors.primaryOrange,
                 ),
                 label: 'Home',
               ),
               NavigationDestination(
                 icon: Icon(
-                  Icons.local_shipping_outlined,
+                  Icons.assignment_outlined,
                   color: AppColors.textGrey,
                 ),
                 selectedIcon: Icon(
-                  Icons.local_shipping_rounded,
+                  Icons.assignment_rounded,
                   color: AppColors.primaryOrange,
                 ),
                 label: 'Orders',
               ),
               NavigationDestination(
                 icon: Icon(
-                  Icons.account_balance_wallet_outlined,
+                  Icons.bar_chart_rounded,
                   color: AppColors.textGrey,
                 ),
                 selectedIcon: Icon(
-                  Icons.account_balance_wallet_rounded,
+                  Icons.bar_chart_rounded,
                   color: AppColors.primaryOrange,
                 ),
                 label: 'Earnings',

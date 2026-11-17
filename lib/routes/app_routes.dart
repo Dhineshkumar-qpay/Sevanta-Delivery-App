@@ -21,6 +21,7 @@ class AppRoutes {
   static const verifyPickup = "verify-pickup";
   static const sellerConfirmation = "seller-confirmation";
   static const orders = "orders";
-  static const orderDetails = "order-details";
   static const activeOrders = "active-orders";
+  static const notifications = "notifications";
+  static const notificationDetails = "notification-details";
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
+import 'package:sevanta_delivery_partner/utils/constants/images.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
 
-class CustomAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool centerTitle;
   final bool automaticallyImplyLeading;
@@ -26,8 +27,7 @@ class CustomAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor:
-      backgroundColor ?? AppColors.backgroundColor,
+      backgroundColor: backgroundColor ?? AppColors.backgroundColor,
       surfaceTintColor: Colors.transparent,
       elevation: elevation,
       scrolledUnderElevation: 0,
@@ -35,60 +35,37 @@ class CustomAppBar extends StatelessWidget
       centerTitle: centerTitle,
       toolbarHeight: 64,
       leadingWidth: isLeading ? 64 : null,
-
       leading: isLeading
-          ? Padding(
-        padding: const EdgeInsets.only(
-          left: 12,
-          top: 10,
-          bottom: 10,
-          right: 10
-        ),
-        child: Material(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(10),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(10),
-            onTap: () {
-              if (context.canPop()) {
-                context.pop();
-              }
-            },
-            child: const Center(
+          ? InkWell(
+              borderRadius: BorderRadius.circular(10),
+              onTap: () {
+                if (context.canPop()) {
+                  context.pop();
+                }
+              },
               child: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                size: 18,
+                size: 20,
                 color: AppColors.textColor,
               ),
-            ),
-          ),
-        ),
-      )
+            )
           : null,
-      title: Text(
-        title,
+      title: HeaderTextBlack(
+        title: title,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 0.2,
-          color: AppColors.textColor,
-        ),
+        fontSize: 18,
+        fontWeight: FontWeight.w700,
       ),
-
+      flexibleSpace: FlexibleSpaceBar(
+        background: Stack(children: [Image.asset(AppImages.appbarBgP)]),
+      ),
       actions: actions == null
           ? null
-          : [
-        ...actions!,
-        const SizedBox(width: 12),
-      ],
+          : [...actions!, const SizedBox(width: 12)],
 
       shape: const Border(
-        bottom: BorderSide(
-          color: Color(0xFFECEFF3),
-          width: 0.7,
-        ),
+        bottom: BorderSide(color: Color(0xFFECEFF3), width: 0.7),
       ),
     );
   }
@@ -96,6 +73,7 @@ class CustomAppBar extends StatelessWidget
   @override
   Size get preferredSize => const Size.fromHeight(64);
 }
+
 class CustomLoadingIndicator extends StatelessWidget {
   const CustomLoadingIndicator({
     super.key,

@@ -70,7 +70,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: widget.hintText,
-        labelStyle: TextStyle(fontSize: 13, color: AppColors.textGrey),
+        labelStyle: AppTextStyle(
+          fontSize: 13,
+          color: AppColors.textGrey,
+          fontWeight: FontWeight.w500,
+        ).textStyle,
         prefixIcon: widget.prefixIcon != null
             ? Icon(widget.prefixIcon, color: AppColors.textGrey, size: 20)
             : null,

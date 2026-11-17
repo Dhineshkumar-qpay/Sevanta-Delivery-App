@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sevanta_delivery_partner/service/live_location_service.dart';
 import 'package:sevanta_delivery_partner/utils/constants/colors.dart';
 import 'package:sevanta_delivery_partner/utils/constants/images.dart';
+import 'package:sevanta_delivery_partner/utils/constants/text_styles.dart';
 import 'package:sevanta_delivery_partner/views/widgets/custom_appbar.dart';
 
 class DeliveryDetails extends StatefulWidget {
@@ -55,7 +56,6 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
     super.dispose();
   }
 
-  /// Live Location Track Function
   Future<void> _startTrackingLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -111,7 +111,6 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
 
       setState(() {
         _polylines = {
-          // Glow halo for same UI style
           Polyline(
             polylineId: const PolylineId('delivery_route_glow'),
             points: points,
@@ -121,7 +120,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
             endCap: Cap.roundCap,
             jointType: JointType.round,
           ),
-          // Main route line matching the orange UI
+
           Polyline(
             polylineId: const PolylineId('delivery_route'),
             points: points,
@@ -243,15 +242,7 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffF5F6FA),
-      // appBar: AppBar(
-      //   title: const Text(
-      //     'Live Tracking',
-      //     style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87),
-      //   ),
-      //   backgroundColor: Colors.white,
-      //   elevation: 0,
-      //   iconTheme: const IconThemeData(color: Colors.black87),
-      // ),
+
       body: ValueListenableBuilder(
         valueListenable: loadingNotifier,
         builder: (context, value, child) {
@@ -381,18 +372,36 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
 
                               _OrderReferenceCard(),
                               const SizedBox(height: 16),
-                              // Delivery Partner
+
                               _PartnerProfileCard(),
 
                               const SizedBox(height: 16),
 
-                              // Order Details
                               _OrderDetailsCard(),
 
                               const SizedBox(height: 15),
 
-                              // Delivery Progress
-                              _DeliveryProgressButton(),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.check_rounded,
+                                      color: Colors.white,
+                                      size: 22,
+                                    ),
+                                    SizedBox(width: 8),
+                                    BodyTextColors(
+                                      title: 'Complete Delivery',
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                      letterSpacing: 0.2,
+                                    ),
+                                  ],
+                                ),
+                              ),
 
                               const SizedBox(height: 20),
                             ],
@@ -405,39 +414,6 @@ class _DeliveryDetailsState extends State<DeliveryDetails> {
           );
         },
       ),
-    );
-  }
-}
-
-class _LocationActions extends StatelessWidget {
-  final VoidCallback onPickupTap;
-  final VoidCallback onDestinationTap;
-
-  const _LocationActions({
-    required this.onPickupTap,
-    required this.onDestinationTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: onPickupTap,
-            icon: const Icon(Icons.my_location, size: 18),
-            label: const Text('Pickup'),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: onDestinationTap,
-            icon: const Icon(Icons.location_on, size: 18),
-            label: const Text('Destination'),
-          ),
-        ),
-      ],
     );
   }
 }
@@ -481,23 +457,16 @@ class _OrderReferenceCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Order Reference',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textGrey,
-                  ),
+                BodyTextHint(
+                  title: 'Order Reference',
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  '#ORD10245',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textColor,
-                    letterSpacing: -0.3,
-                  ),
+                HeaderTextBlack(
+                  title: '#ORD10245',
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
                 ),
               ],
             ),
@@ -530,13 +499,11 @@ class _OrderReferenceCard extends StatelessWidget {
                       size: 13,
                     ),
                     SizedBox(width: 4),
-                    Text(
-                      'On the Way',
-                      style: TextStyle(
-                        color: AppColors.successText,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    BodyTextColors(
+                      title: 'On the Way',
+                      color: AppColors.successText,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
                     ),
                   ],
                 ),
@@ -545,13 +512,10 @@ class _OrderReferenceCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    'Arriving in ',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.textGrey,
-                    ),
+                  BodyTextHint(
+                    title: 'Arriving in ',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
                   ),
 
                   const Icon(
@@ -560,13 +524,10 @@ class _OrderReferenceCard extends StatelessWidget {
                     color: AppColors.textColor,
                   ),
                   const SizedBox(width: 3),
-                  Text(
-                    '15 min',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.textColor,
-                    ),
+                  HeaderTextBlack(
+                    title: '15 min',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w800,
                   ),
                 ],
               ),
@@ -578,9 +539,6 @@ class _OrderReferenceCard extends StatelessWidget {
   }
 }
 
-// ==========================================
-// 4. DELIVERY PARTNER PROFILE CARD (STATELESS)
-// ==========================================
 class _PartnerProfileCard extends StatelessWidget {
   const _PartnerProfileCard();
 
@@ -602,7 +560,6 @@ class _PartnerProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Avatar with Orange Ring and Online Status Dot
           Stack(
             clipBehavior: Clip.none,
             children: [
@@ -638,31 +595,24 @@ class _PartnerProfileCard extends StatelessWidget {
 
           const SizedBox(width: 12),
 
-          // Name, Title, and Rating
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Rohit Sharma',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.textColor,
-                  ),
+                HeaderTextBlack(
+                  title: 'Rohit Sharma',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
                 const SizedBox(height: 2),
-                const Text(
-                  'Delivery Partner',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textGrey,
-                  ),
+                BodyTextHint(
+                  title: 'Delivery Partner',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
                 const SizedBox(height: 4),
-                // Rating row
+
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 7,
@@ -677,26 +627,20 @@ class _PartnerProfileCard extends StatelessWidget {
                     children: const [
                       Icon(
                         Icons.star_rounded,
-                        color: Color(0xFFF59E0B),
+                        color: AppColors.primaryOrange,
                         size: 15,
                       ),
                       SizedBox(width: 3),
-                      Text(
-                        '4.8',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.textColor,
-                        ),
+                      HeaderTextBlack(
+                        title: '4.8',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
                       ),
                       SizedBox(width: 3),
-                      Text(
-                        '(532 Ratings)',
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textGrey,
-                        ),
+                      BodyTextHint(
+                        title: '(532 Ratings)',
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   ),
@@ -705,11 +649,9 @@ class _PartnerProfileCard extends StatelessWidget {
             ),
           ),
 
-          // Call and Chat Action Buttons
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Call Button
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -731,20 +673,16 @@ class _PartnerProfileCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    'Call',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textColor,
-                    ),
+                  HeaderTextBlack(
+                    title: 'Call',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
 
               const SizedBox(width: 14),
 
-              // Chat Button
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -770,13 +708,10 @@ class _PartnerProfileCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    'Massage',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textColor,
-                    ),
+                  HeaderTextBlack(
+                    title: 'Massage',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
                   ),
                 ],
               ),
@@ -788,9 +723,6 @@ class _PartnerProfileCard extends StatelessWidget {
   }
 }
 
-// ==========================================
-// 5. ORDER DETAILS CARD (STATELESS)
-// ==========================================
 class _OrderDetailsCard extends StatelessWidget {
   const _OrderDetailsCard();
 
@@ -806,7 +738,6 @@ class _OrderDetailsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header: Route icon + Order Details
           Row(
             children: const [
               Icon(
@@ -815,30 +746,23 @@ class _OrderDetailsCard extends StatelessWidget {
                 size: 18,
               ),
               SizedBox(width: 8),
-              Text(
-                'Order Details',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textColor,
-                ),
+              BodyTextColors(
+                title: 'Order Details',
+                fontSize: 15,
+                color: AppColors.primaryColor,
+                fontWeight: FontWeight.w700,
               ),
             ],
           ),
-
           const SizedBox(height: 14),
-
-          // Content Row: Left (Stops) & Right (Stats)
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Left Column: Pickup & Drop addresses
               Expanded(
                 flex: 12,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Pickup Stop
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -855,22 +779,16 @@ class _OrderDetailsCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
-                              Text(
-                                'Fresh Mart',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.textColor,
-                                ),
+                              HeaderTextBlack(
+                                title: 'Fresh Mart',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
                               ),
                               SizedBox(height: 1),
-                              Text(
-                                '24, Anna Nagar, Chennai',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textGrey,
-                                ),
+                              BodyTextHint(
+                                title: '24, Anna Nagar, Chennai',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
                               ),
                             ],
                           ),
@@ -890,7 +808,6 @@ class _OrderDetailsCard extends StatelessWidget {
                       ),
                     ),
 
-                    // Drop Stop
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -907,22 +824,16 @@ class _OrderDetailsCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
-                              Text(
-                                'Arjun Kumar',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.textColor,
-                                ),
+                              HeaderTextBlack(
+                                title: 'Arjun Kumar',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
                               ),
                               SizedBox(height: 1),
-                              Text(
-                                '18, MG Road, Chennai',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textGrey,
-                                ),
+                              BodyTextHint(
+                                title: '18, MG Road, Chennai',
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
                               ),
                             ],
                           ),
@@ -933,18 +844,15 @@ class _OrderDetailsCard extends StatelessWidget {
                 ),
               ),
 
-              // Subtle Divider
               Container(width: 1, height: 70, color: const Color(0xFFFFDEC9)),
 
               const SizedBox(width: 14),
 
-              // Right Column: Distance & Estimated Time Stats
               Expanded(
                 flex: 8,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Distance
                     Row(
                       children: [
                         const Icon(
@@ -956,21 +864,15 @@ class _OrderDetailsCard extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text(
-                              '4.5 KM',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w900,
-                                color: AppColors.textColor,
-                              ),
+                            HeaderTextBlack(
+                              title: '4.5 KM',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
                             ),
-                            Text(
-                              'Distance',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.textGrey,
-                              ),
+                            BodyTextHint(
+                              title: 'Distance',
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
@@ -979,7 +881,6 @@ class _OrderDetailsCard extends StatelessWidget {
 
                     const SizedBox(height: 14),
 
-                    // Estimated Time
                     Row(
                       children: [
                         const Icon(
@@ -991,21 +892,15 @@ class _OrderDetailsCard extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: const [
-                            Text(
-                              '15 min',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w900,
-                                color: AppColors.textColor,
-                              ),
+                            HeaderTextBlack(
+                              title: '15 min',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
                             ),
-                            Text(
-                              'Est. Time',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.textGrey,
-                              ),
+                            BodyTextHint(
+                              title: 'Est. Time',
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
@@ -1018,240 +913,6 @@ class _OrderDetailsCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-// ==========================================
-// 6. NEED HELP? BUTTON (STATELESS)
-// ==========================================
-class _NeedHelpButton extends StatelessWidget {
-  const _NeedHelpButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 48,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFFFEBDD),
-          foregroundColor: AppColors.primaryOrange,
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: const BorderSide(color: Color(0xFFFFD4B8), width: 1.2),
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.support_agent_rounded,
-              color: AppColors.primaryOrange,
-              size: 22,
-            ),
-            SizedBox(width: 8),
-            Text(
-              'Need Help?',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: AppColors.primaryOrange,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _DeliveryProgressButton extends StatelessWidget {
-  const _DeliveryProgressButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 52,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        gradient: const LinearGradient(
-          colors: [Color(0xFFFF7A1A), Color(0xFFF15A24)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFFF15A24).withValues(alpha: 0.32),
-            blurRadius: 16,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.check_rounded, color: Colors.white, size: 22),
-            SizedBox(width: 8),
-            Text(
-              'Complete Delivery',
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-                letterSpacing: 0.2,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _StorePinMarker extends StatelessWidget {
-  const _StorePinMarker();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Concentric glow ring
-        Container(
-          width: 52,
-          height: 52,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: const Color(0xFFFFE6D5).withValues(alpha: 0.6),
-          ),
-        ),
-        // Orange beacon pin
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(
-              Icons.location_on,
-              color: AppColors.primaryOrange,
-              size: 28,
-            ),
-            // Mini store building
-            Container(
-              width: 28,
-              height: 20,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4),
-                border: Border.all(color: AppColors.primaryOrange, width: 1.5),
-              ),
-              child: const Icon(
-                Icons.storefront,
-                color: AppColors.primaryOrange,
-                size: 14,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _MovingRiderMarker extends StatelessWidget {
-  const _MovingRiderMarker();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Outer Radar pulse
-        Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.primaryOrange.withValues(alpha: 0.18),
-          ),
-        ),
-        // Inner pulse ring
-        Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.primaryOrange.withValues(alpha: 0.3),
-          ),
-        ),
-        // Scooter Icon
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: AppColors.primaryOrange,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: const Icon(Icons.moped_rounded, color: Colors.white, size: 16),
-        ),
-      ],
-    );
-  }
-}
-
-class _DestinationHomeMarker extends StatelessWidget {
-  const _DestinationHomeMarker();
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        // Concentric soft blue radar rings
-        Container(
-          width: 56,
-          height: 56,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: const Color(0xFF1B4E9B).withValues(alpha: 0.12),
-          ),
-        ),
-        Container(
-          width: 38,
-          height: 38,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: const Color(0xFF1B4E9B).withValues(alpha: 0.22),
-          ),
-        ),
-        // Navy Blue Home Pin
-        Container(
-          width: 26,
-          height: 26,
-          decoration: const BoxDecoration(
-            color: Color(0xFF1B3B6F),
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: const Icon(Icons.home_rounded, color: Colors.white, size: 15),
-        ),
-      ],
     );
   }
 }
@@ -1272,118 +933,6 @@ class _DottedLinePainter extends CustomPainter {
       canvas.drawLine(Offset(0, startY), Offset(0, startY + dashHeight), paint);
       startY += dashHeight + dashSpace;
     }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _DetailedMapPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // 1. Map Road Network
-    final roadPaint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 7
-      ..style = PaintingStyle.stroke;
-
-    final minorRoadPaint = Paint()
-      ..color = Colors.white.withValues(alpha: 0.85)
-      ..strokeWidth = 4
-      ..style = PaintingStyle.stroke;
-
-    // Diagonal and grid street lines
-    canvas.drawLine(
-      Offset(-10, size.height * 0.25),
-      Offset(size.width + 10, size.height * 0.45),
-      roadPaint,
-    );
-    canvas.drawLine(
-      Offset(-10, size.height * 0.55),
-      Offset(size.width + 10, size.height * 0.75),
-      roadPaint,
-    );
-    canvas.drawLine(
-      Offset(size.width * 0.25, -10),
-      Offset(size.width * 0.45, size.height + 10),
-      roadPaint,
-    );
-    canvas.drawLine(
-      Offset(size.width * 0.65, -10),
-      Offset(size.width * 0.85, size.height + 10),
-      roadPaint,
-    );
-    canvas.drawLine(
-      Offset(0, size.height * 0.85),
-      Offset(size.width, size.height * 0.85),
-      minorRoadPaint,
-    );
-    canvas.drawLine(
-      Offset(0, size.height * 0.12),
-      Offset(size.width, size.height * 0.12),
-      minorRoadPaint,
-    );
-
-    // Green land/park patches
-    final parkPaint = Paint()..color = const Color(0xFFD6F0E0);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width * 0.68, size.height * 0.15, 42, 28),
-        const Radius.circular(6),
-      ),
-      parkPaint,
-    );
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width * 0.08, size.height * 0.62, 36, 24),
-        const Radius.circular(5),
-      ),
-      parkPaint,
-    );
-
-    // Pale blue water patch
-    final waterPaint = Paint()..color = const Color(0xFFD8ECF8);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromLTWH(size.width * 0.72, size.height * 0.48, 54, 40),
-        const Radius.circular(8),
-      ),
-      waterPaint,
-    );
-
-    // 2. Smooth Continuous Orange Route Curve
-    final routePath = Path();
-    final start = Offset(size.width * 0.24, size.height * 0.26);
-    final mid = Offset(size.width * 0.52, size.height * 0.48);
-    final end = Offset(size.width * 0.78, size.height * 0.74);
-
-    routePath.moveTo(start.dx, start.dy);
-    routePath.cubicTo(
-      size.width * 0.42,
-      size.height * 0.28,
-      size.width * 0.36,
-      size.height * 0.46,
-      mid.dx,
-      mid.dy,
-    );
-    routePath.cubicTo(
-      size.width * 0.62,
-      size.height * 0.50,
-      size.width * 0.68,
-      size.height * 0.68,
-      end.dx,
-      end.dy,
-    );
-
-    // Route stroke
-    final routePaint = Paint()
-      ..color = AppColors.primaryOrange
-      ..strokeWidth = 4.2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-
-    canvas.drawPath(routePath, routePaint);
   }
 
   @override
